@@ -5,7 +5,7 @@ import { Launch } from '../interfaces';
 import './LaunchList.css';
 
 const LaunchList: React.FC = () => {
-    const { data, loading, fetchMore } = useLaunches(20, null);
+    const { data, loading, fetchMore } = useLaunches(40, null);
 
     const loadMore = () => {
         if (data?.launches.hasMore) {
@@ -31,18 +31,18 @@ const LaunchList: React.FC = () => {
     };
 
     return (
-        <div className="launches-container">
+        <section className="launches-container" aria-busy={loading}>
             {data?.launches.launches.map((launch: Launch) => (
-                <div key={launch.id} className="launch-card">
+                <article key={launch.id} className="launch-card" tabIndex={0}>
                     <h3>{launch.mission.name}</h3>
                     <p><strong>ID:</strong> {launch.id}</p>
                     <p><strong>Rocket:</strong> {launch.rocket.name}</p>
                     <p><strong>Launch Site:</strong> {launch.site}</p>
-                </div>
+                </article>
             ))}
-            {loading && <p>Loading...</p>}
+            {loading && <p aria-live="polite">Loading...</p>}
             <InView onChange={(inView) => inView && loadMore()} />
-        </div>
+        </section>
     );
 };
 
