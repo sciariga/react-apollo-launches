@@ -16,7 +16,7 @@ const mocks: MockedResponse[] = [
     request: {
       query: GET_LAUNCHES,
       variables: {
-        pageSize: 20,
+        pageSize: 40,
         after: null,
       },
     },
@@ -53,7 +53,7 @@ test('renders launch list and caches the data', async () => {
   );
 
   expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
-  
+
   await waitFor(() => expect(screen.queryByText(/Loading.../i)).not.toBeInTheDocument());
 
   expect(screen.getByText(/mission 1/i)).toBeInTheDocument();
